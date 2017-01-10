@@ -17,7 +17,8 @@ TARGET_USE_UI_SVA := true
 # Video codec configuration files
 ifeq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS), true)
 PRODUCT_COPY_FILES += device/qcom/msm8998/media_profiles.xml:system/etc/media_profiles.xml \
-                      device/qcom/msm8998/media_codecs.xml:system/etc/media_codecs.xml
+                      device/qcom/msm8998/media_codecs.xml:system/etc/media_codecs.xml \
+                      device/qcom/msm8998/media_codecs_performance.xml:system/etc/media_codecs_performance.xml
 endif #TARGET_ENABLE_QC_AV_ENHANCEMENTS
 
 
@@ -106,10 +107,14 @@ PRODUCT_COPY_FILES += \
 
 # FBE support
 PRODUCT_COPY_FILES += \
-    device/qcom/msm8998/init.qcom.qseecomd.sh:system/bin/init.qcom.qseecomd.sh
+    device/qcom/msm8998/init.qti.qseecomd.sh:system/bin/init.qti.qseecomd.sh
 
 # MSM IRQ Balancer configuration file
 PRODUCT_COPY_FILES += device/qcom/msm8998/msm_irqbalance.conf:system/vendor/etc/msm_irqbalance.conf
+
+# Powerhint configuration file
+PRODUCT_COPY_FILES += \
+device/qcom/msm8998/powerhint.xml:system/etc/powerhint.xml
 
 #for android_filesystem_config.h
 PRODUCT_PACKAGES += \
