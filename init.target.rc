@@ -439,3 +439,8 @@ service qvrd /system/vendor/bin/qvrservice
     user system
     group system camera graphics
     socket qvrservice stream 0666 system system
+
+service smcinvoked /system/vendor/bin/smcinvoked
+    class main
+    user system
+    group system
