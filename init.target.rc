@@ -49,14 +49,9 @@ on fs
     # these partition flashed on the device. Failure to mount any partition in fstab file
     # results in failure to launch late-start class.
 
-    wait /dev/block/bootdevice/by-name/persist
-    mount ext4 /dev/block/bootdevice/by-name/persist /persist nosuid nodev barrier=1
     mkdir /persist/data 0700 system system
     mkdir /persist/bms 0700 root system
     restorecon_recursive /persist
-
-    wait /dev/block/bootdevice/by-name/dsp
-    mount ext4 /dev/block/bootdevice/by-name/dsp /dsp ro nosuid nodev barrier=1
 
 on post-fs
     start qseecomd
@@ -75,6 +70,8 @@ on post-fs-data
     mkdir /data/misc/hbtp 0750 system system
     mkdir /data/misc/seemp 0700 system system
     mkdir /data/misc/qvr 0770 system system
+    mkdir /data/misc/qdmastats 0700 system system
+    mkdir /data/misc/qdma 0770 system system
 
 # For cpusets initialize for Silver Only first and then Silver + Gold
 # Silver Only configuration cannot work with 0-7
@@ -439,3 +436,13 @@ service qvrd /system/vendor/bin/qvrservice
     user system
     group system camera graphics
     socket qvrservice stream 0666 system system
+
+service smcinvoked /system/vendor/bin/smcinvoked
+    class main
+    user system
+    group system
+
+service qdmastatsd /system/bin/qdmastatsd
+    class late_start
+    user system
+    group system
