@@ -96,7 +96,6 @@ PRODUCT_PACKAGES += \
     antradio_app \
     libvolumelistener
 
-
 # Sensor features
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
@@ -148,3 +147,10 @@ PRODUCT_PACKAGES_DEBUG += bootctl
 #FEATURE_OPENGLES_EXTENSION_PACK support string config file
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.opengles.aep.xml:system/etc/permissions/android.hardware.opengles.aep.xml
+
+PRODUCT_PACKAGES += IFAAService
+
+SDCLANG_PATH := device/qcom/common/llvm-arm-toolchain-ship/3.8/bin
+$(call inherit-product-if-exists, vendor/oneplus/prebuilt.mk)
+$(call inherit-product-if-exists, device/qcom/msm8998/device-vendor.mk)
+
