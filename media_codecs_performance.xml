@@ -97,8 +97,8 @@ limitations under the License.
             <Limit name="measured-frame-rate-1920x1080" range="245-255" />
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.decoder.vp9" type="video/x-vnd.on2.vp9" update="true">
-            <Limit name="measured-frame-rate-320x240" range="190-200" />
-            <Limit name="measured-frame-rate-640x360" range="150-160" />
+            <Limit name="measured-frame-rate-320x240" range="220-220" />
+            <Limit name="measured-frame-rate-640x360" range="200-200" />
             <Limit name="measured-frame-rate-1280x720" range="120-130" />
             <Limit name="measured-frame-rate-1920x1080" range="100-120" />
             <Limit name="measured-frame-rate-3840x2160" range="50-60" />
