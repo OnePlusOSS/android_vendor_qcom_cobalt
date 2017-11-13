@@ -1,7 +1,7 @@
 DEVICE_PACKAGE_OVERLAYS := device/qcom/msm8998/overlay
 TARGET_KERNEL_VERSION := 4.4
 BOARD_HAVE_QCOM_FM := true
-TARGET_USES_NQ_NFC := true
+TARGET_USES_NQ_NFC := false
 
 ifeq ($(TARGET_USES_NQ_NFC),true)
 # Flag to enable and support NQ3XX chipsets
@@ -9,7 +9,7 @@ NQ3XX_PRESENT := true
 endif
 
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
-BOARD_FRP_PARTITION_NAME :=frp
+BOARD_FRP_PARTITION_NAME :=config
 
 # enable the SVA in UI area
 TARGET_USE_UI_SVA := true
@@ -51,11 +51,11 @@ PRODUCT_BOOT_JARS += telephony-ext
 PRODUCT_PACKAGES += telephony-ext
 PRODUCT_PACKAGES += libqmiextservices
 
-ifneq ($(strip $(QCPATH)),)
-PRODUCT_BOOT_JARS += WfdCommon
+#ifneq ($(strip $(QCPATH)),)
+#PRODUCT_BOOT_JARS += WfdCommon
 #Android oem shutdown hook
-PRODUCT_BOOT_JARS += oem-services
-endif
+#PRODUCT_BOOT_JARS += oem-services
+#endif
 
 ifeq ($(strip $(BOARD_HAVE_QCOM_FM)),true)
 PRODUCT_BOOT_JARS += qcom.fmradio
@@ -148,3 +148,24 @@ PRODUCT_PACKAGES_DEBUG += bootctl
 #FEATURE_OPENGLES_EXTENSION_PACK support string config file
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.opengles.aep.xml:system/etc/permissions/android.hardware.opengles.aep.xml
+
+PRODUCT_PACKAGES += IFAAService
+
+PRODUCT_PACKAGES += \
+    NfcNci \
+    Tag \
+    com.android.nfc_extras \
+    libpn553_fw.so
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
+    frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
+    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
+    packages/apps/Nfc/nfc_config/nfc_66T/libnfc-nxp.conf:system/etc/libnfc-nxp.conf \
+    packages/apps/Nfc/nfc_config/nfc_66T/libnfc-brcm.conf:system/etc/libnfc-brcm.conf
+
+SDCLANG_PATH := device/qcom/common/llvm-arm-toolchain-ship/3.8/bin
+
+$(call inherit-product-if-exists, device/qcom/msm8998/device-vendor.mk)
+$(call inherit-product-if-exists, vendor/oneplus/prebuilt.mk)
