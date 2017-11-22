@@ -7,12 +7,12 @@ TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 TARGET_DISABLE_DASH := true
 
 # Default vendor configuration.
-ifeq ($(ENABLE_VENDOR_IMAGE),)
-ENABLE_VENDOR_IMAGE := true
-endif
+#ifeq ($(ENABLE_VENDOR_IMAGE),)
+#ENABLE_VENDOR_IMAGE := true
+#endif
 
 # Default A/B configuration.
-ENABLE_AB ?= true
+ENABLE_AB ?= false
 
 # Disable QTIC until it's brought up in split system/vendor
 # configuration to avoid compilation breakage.
@@ -102,11 +102,11 @@ PRODUCT_BOOT_JARS += telephony-ext
 
 PRODUCT_PACKAGES += telephony-ext
 
-ifneq ($(strip $(QCPATH)),)
-PRODUCT_BOOT_JARS += WfdCommon
+#ifneq ($(strip $(QCPATH)),)
+#PRODUCT_BOOT_JARS += WfdCommon
 #Android oem shutdown hook
-PRODUCT_BOOT_JARS += oem-services
-endif
+#PRODUCT_BOOT_JARS += oem-services
+#endif
 
 # system prop for Bluetooth SOC type
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -215,8 +215,8 @@ PRODUCT_PACKAGES += libqmi_cci_system
 PRODUCT_PACKAGES += libdiag_system
 
 # High performance VR feature
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.vr.high_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vr.high_performance.xml
+#PRODUCT_COPY_FILES += \
+#    frameworks/native/data/etc/android.hardware.vr.high_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vr.high_performance.xml
 
 # FBE support
 PRODUCT_COPY_FILES += \
@@ -239,9 +239,9 @@ ifeq ($(ENABLE_VENDOR_IMAGE), true)
 PRODUCT_VENDOR_VERITY_PARTITION := /dev/block/bootdevice/by-name/vendor
 endif
 
-PRODUCT_FULL_TREBLE_OVERRIDE := true
+PRODUCT_FULL_TREBLE_OVERRIDE := false
 
-PRODUCT_VENDOR_MOVE_ENABLED := true
+PRODUCT_VENDOR_MOVE_ENABLED := false
 
 # List of AAPT configurations
 PRODUCT_AAPT_CONFIG += xlarge large
@@ -301,3 +301,6 @@ PRODUCT_PACKAGES += android.hardware.vr@1.0-impl \
 #Thermal
 PRODUCT_PACKAGES += android.hardware.thermal@1.0-impl \
                     android.hardware.thermal@1.0-service
+
+$(call inherit-product-if-exists, vendor/oneplus/prebuilt.mk)
+$(call inherit-product-if-exists, device/qcom/msm8998/device-vendor.mk)
